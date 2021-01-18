@@ -1,7 +1,9 @@
-import  requests, json, csv, sys
+# encoding: utf-8
+import  requests, json, sys
 from datetime import datetime
+from backports import csv
+import io
 
-# -*- coding: utf-8 -*-
 #Constants
 #The API retuns the list of votes/Posts in a paginated form, so by default it returns 10 objects if we dont add any 'limit' parameter
 COUNT_LIMIT = 10
@@ -75,7 +77,7 @@ def getAllBoardsData():
 
 
 def writeDictionaryToCSV(dict, fileName):
-    with open(fileName, 'w', newline = '') as csv_file:
+    with io.open(fileName, 'w', encoding="utf-8") as csv_file:
         fieldNames = HEADER_CSV_KEYS_ORDER
         writer = csv.DictWriter(csv_file, fieldnames = fieldNames)
         writer.writeheader()
@@ -84,6 +86,7 @@ def writeDictionaryToCSV(dict, fileName):
             votesArr = dict[key]
             print("writing",votesArr)
             for vote in votesArr:
+                #encodedRow = [v.decode('utf8') if isinstance(v, str) else v for v in vote]
                 writer.writerow(vote)
             
 
