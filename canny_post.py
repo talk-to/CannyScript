@@ -74,7 +74,7 @@ def getAllBoardsData():
 
 
 def writeDictionaryToCSV(dict, fileName):
-    with open(fileName, mode = 'w',encoding='utf-8') as csv_file:
+    with open(fileName, mode = 'w') as csv_file:
         fieldNames = HEADER_CSV_KEYS_ORDER
         writer = csv.DictWriter(csv_file, fieldnames = fieldNames)
         writer.writeheader()
